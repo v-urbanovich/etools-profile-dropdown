@@ -1,0 +1,221 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-icons/social-icons.html">
+<link rel="import" href="../etools-dexiejs/etools-dexiejs.html">
+<link rel="import" href="../etools-dialog/etools-dialog.html">
+
+<link rel="import" href="user-profile-dialog.html">
+<!--
+`etools-profile-dropdown`
+User profile dropdown for header toolbar
+
+@demo demo/index.html 
+-->
+
+<dom-module id="etools-profile-dropdown">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: relative;
+      }
+      #profile.open, #accountProfile, #powerSettings {
+        color: var(--dark-scondary-text-color, rgba(0, 0, 0, 0.54));
+      }
+      #profile {
+        color: var(--title-toolbar-secondary-text-color, #C7CED2);
+      }
+      .dropdown-content {
+        position: absolute;
+        top: 60px;
+        z-index: 100;
+        background: var(--primary-background-color,#FFFFFF);
+        padding: 8px 0;
+        right: 0px;
+      }
+      .open {
+        background: var(--primary-background-color, #FFFFFF);
+      }
+      paper-icon-button#profile {
+        width: 60px;
+        height: 60px;
+        padding: 12px 16px;
+      }
+      .dropdown-content .item {
+        height: 48px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.87);
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        padding: 0 16px 0 8px;
+        cursor: pointer;
+        white-space:nowrap;
+      }
+
+      .dropdown-content .item:hover {
+        background: var(--medium-theme-background-color,#EEEEEE);
+      }
+
+    </style>
+    <paper-icon-button id="profile" icon="social:person" role="button" on-tap="_handleTap"
+                       aria-disabled="false" class$="[[opened]]"></paper-icon-button>
+    <iron-collapse id="userDropdown">
+      <paper-material elevation="5" class="dropdown-content" id="user-dropdown">
+        <div class="item" on-tap="_openUserProfileDialog">
+          <paper-icon-button id="accountProfile" icon="account-circle"></paper-icon-button>
+          Profile
+        </div>
+        <div class="item" on-tap="_logout">
+          <paper-icon-button id="powerSettings" icon="power-settings-new"></paper-icon-button>
+          Sign out
+        </div>
+      </paper-material>
+    </iron-collapse>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'etools-profile-dropdown',
+      properties: {
+        prop1: {
+          type: String,
+          value: 'etools-profile-dropdown',
+        },
+        opened: {
+          type: String,
+          value: ''
+        },
+        userProfileDialog: Object,
+        sections: {
+          type: Object,
+          notify: true
+        },
+        offices: {
+          type: Object,
+          notify: true,
+        },
+        users: {
+          type: Object,
+          notify: true
+        },
+        profile: {
+          type: Object,
+          notify: true
+        }
+      },
+      observers: [
+        '_dataLoaded(sections, offices,users,profile)',
+      ],
+      ready: function() {
+        this.dexieDbsNumber = 0;
+        this.deleteAttemptsOnDbs = [];
+        this.userProfileDialog = document.createElement('user-profile-dialog');
+        this.userProfileDialog.setAttribute('id', 'userProfileDialog');
+
+
+        this.userProfileDialog.addEventListener('hacky-save', function(e) {
+          this.fire('save-profile', e.detail)
+        }.bind(this), false);
+
+        Polymer.dom(document.querySelector('body')).appendChild(this.userProfileDialog);
+      },
+      attached: function() {
+        document.addEventListener('click', this._onCaptureClick.bind(this), true);
+      },
+      detached: function() {
+        if (this.userProfileDialog) {
+          Polymer.dom(document.querySelector('body')).removeChild(this.userProfileDialog);
+        }
+      },
+      _dataLoaded: function() {
+        if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+          this.userProfileDialog.profile = this.profile;
+          this.userProfileDialog.offices = this.offices;
+          this.userProfileDialog.users = this.users;
+          this.userProfileDialog.sections = this.sections;
+          this.fire('global-loading');
+        }
+      },
+      _allHaveValues: function() {
+        var self = this;
+        var args = _.toArray(arguments);
+        return args.reduce(function(hasVal, prop) {
+          return !_.isEmpty(self[prop]) && hasVal;
+        }, true);
+      },
+      _logout: function() {
+        this._clearDexieDbs();
+        this._clearLocalStorage();
+      },
+      _openUserProfileDialog: function(event) {
+        this.userProfileDialog.openUserProfileDialog();
+        if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+          this.fire('global-loading', {active: true, message:' Loading profile...'})
+        }
+      },
+      _handleTap: function(e) {
+        this.$.userDropdown.toggle();
+        if (this.opened) {
+          this.set('opened', '');
+        } else {
+          this.set('opened', 'open');
+        }
+      },
+      _onCaptureClick: function(e) {
+        if (this._isInPath(Polymer.dom(e).path, 'id', 'profile')) {
+          return;
+        }
+        if (!this._isInPath(Polymer.dom(e).path, 'id', 'user-dropdown')) {
+          if (this.$.userDropdown.opened) {
+            this._handleTap();
+          }
+        }
+
+      },
+      _isInPath: function(path, prop, value) {
+        path = path || [];
+        for (var i = 0; i < path.length; i++) {
+          if (path[i][prop] === value) {
+            return true;
+          }
+        }
+        return false;
+      },
+      _clearDexieDbs: function() {
+        // except Chrome and Opera this method will delete only the dbs created with Dexie
+        Dexie.getDatabaseNames(function(dbsNames) {
+          this.dexieDbsNumber = dbsNames.length;
+          if (this.dexieDbsNumber > 0) {
+            dbsNames.forEach(function(dbName) {
+              this._deleteDexieDb(dbName);
+            }.bind(this));
+          }
+        }.bind(this));
+      },
+      _deleteDexieDb: function(dbName) {
+        var db = new Dexie(dbName);
+        db.delete().catch(function(err) {
+          console.error("Could not delete indexedDB: " + dbName, err);
+        }).finally(function() {
+          this.push('deleteAttemptsOnDbs', dbName);
+          this._dexieDbsDeleted();
+        }.bind(this));
+      },
+      _clearLocalStorage: function() {
+        localStorage.clear();
+      },
+      _dexieDbsDeleted: function() {
+        if (this.dexieDbsNumber > 0 && this.deleteAttemptsOnDbs.length === this.dexieDbsNumber) {
+          window.location.href = window.location.origin + '/saml2/logout';
+        }
+      },
+
+
+
+    });
+  </script>
+</dom-module>
