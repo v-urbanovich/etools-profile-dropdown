@@ -5,15 +5,15 @@
   "main": "etools-profile-dropdown.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "iron-flex-layout": "^2.0.0",
-    "paper-icon-button": "^2.0.0",
-    "iron-collapse": "^2.0.0",
-    "paper-material": "^2.0.0",
-    "iron-icons": "^2.0.0",
+    "iron-flex-layout": "^1.3.7",
+    "paper-icon-button": "^1.1.6",
+    "iron-collapse": "^1.3.0",
+    "paper-material": "^1.0.7",
+    "iron-icons": "^1.2.1",
     "etools-dexiejs": "^1.0.4",
     "etools-dialog": "^1.0.11",
-    "paper-input": "^2.0.0",
-    "paper-toolbar": "^2.0.0",
+    "paper-input": "^1.1.20",
+    "paper-toolbar": "^1.1.7",
     "etools-searchable-multiselection-menu": "^2.0.0"
   },
   "devDependencies": {
