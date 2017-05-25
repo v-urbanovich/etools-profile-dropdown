@@ -1,7 +1,7 @@
 {
   "name": "etools-profile-dropdown",
   "description": "User profile dropdown for header toolbar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "etools-profile-dropdown.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
