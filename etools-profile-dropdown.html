@@ -81,27 +81,63 @@ User profile dropdown for header toolbar
 
       is: 'etools-profile-dropdown',
       properties: {
-        prop1: {
-          type: String,
-          value: 'etools-profile-dropdown',
-        },
         opened: {
           type: String,
           value: ''
         },
         userProfileDialog: Object,
+        /**
+         *
+         * Expected structure of array elements :
+         *
+         *      el = {
+         *        label: 'element label',
+         *        value: '234'
+         *      }
+         * @type (ArrayBuffer|ArrayBufferView)
+         */
+
         sections: {
-          type: Object,
+          type: Array,
           notify: true
         },
+
+        /**
+         *
+         * Expected structure of array elements :
+         *
+         *      el = {
+         *        label: 'element label',
+         *        value: '234'
+         *      }
+         * @type (ArrayBuffer|ArrayBufferView)
+         */
         offices: {
-          type: Object,
+          type: Array,
           notify: true,
         },
+
+        /**
+         *
+         * Expected structure of array elements :
+         *
+         *      user = {
+         *        label: user.full_name,
+         *        value: user.id
+         *      }
+         * @type (ArrayBuffer|ArrayBufferView)
+         */
         users: {
           type: Object,
           notify: true
         },
+
+        /**
+         *
+         *  Profile object should be according to api endpoint
+         *  `/users/myprofile/`
+         *  and all modifications should be POSTed to the same endpoint
+         */
         profile: {
           type: Object,
           notify: true
