@@ -20,6 +20,12 @@
         --etools-checkable-input-label: {
           font-size: 14px;
         };
+
+        --paper-dialog-scrollable: {
+          width: 100%;
+          overflow-x: hidden;
+          max-height: 600px;
+        };
       }
 
       etools-checkable-input:not(:last-of-type) {
@@ -45,17 +51,16 @@
           border-radius: 8px;
         };
         --paper-toolbar-title: {
+          /* TODO: --nested-content-panel-title it's a mixin specific to PMP, we need to chenge this */
           @apply(--nested-content-panel-title);
           margin-left: 0;
         };
       }
 
       #profile-content {
-        max-height: 600px;
-        overflow-y: auto;
-        overflow-x : hidden;
-        margin: 0 -20px;
-        padding: 0 15px;
+        overflow: hidden;
+        box-sizing: border-box;
+        @apply(--user-profile-dropdown-content);
       }
       .row-h {
         @apply(--layout-horizontal);
