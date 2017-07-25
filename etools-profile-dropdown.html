@@ -19,11 +19,20 @@ User profile dropdown for header toolbar
   <template>
     <style>
       :host {
-        display: inline-block;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
         position: relative;
+        width: 60px;
+        height: 60px;
       }
 
-      #profile.open, #accountProfile, #powerSettings {
+      :host([opened="open"]) {
+        background: var(--primary-background-color, #FFFFFF);
+      }
+
+      :host([opened="open"]) #profile,
+      #accountProfile, #powerSettings {
         color: var(--dark-scondary-text-color, rgba(0, 0, 0, 0.54));
       }
 
@@ -38,16 +47,6 @@ User profile dropdown for header toolbar
         background: var(--primary-background-color, #FFFFFF);
         padding: 8px 0;
         right: 0px;
-      }
-
-      .open {
-        background: var(--primary-background-color, #FFFFFF);
-      }
-
-      paper-icon-button#profile {
-        width: 60px;
-        height: 60px;
-        padding: 18px;
       }
 
       .dropdown-content .item {
@@ -67,7 +66,7 @@ User profile dropdown for header toolbar
 
     </style>
     <paper-icon-button id="profile" icon="social:person" role="button" on-tap="_handleTap"
-                       aria-disabled="false" class$="[[opened]]"></paper-icon-button>
+                       aria-disabled="false"></paper-icon-button>
     <iron-collapse id="userDropdown">
       <paper-material elevation="5" class="dropdown-content" id="user-dropdown">
         <div class="item" on-tap="_openUserProfileDialog">
@@ -89,7 +88,8 @@ User profile dropdown for header toolbar
       properties: {
         opened: {
           type: String,
-          value: ''
+          value: '',
+          reflectToAttribute: true
         },
         userProfileDialog: Object,
         /**
