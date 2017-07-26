@@ -19,31 +19,36 @@ User profile dropdown for header toolbar
   <template>
     <style>
       :host {
-        display: inline-block;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
         position: relative;
+        width: 60px;
+        height: 60px;
       }
-      #profile.open, #accountProfile, #powerSettings {
+
+      :host([opened="open"]) {
+        background: var(--primary-background-color, #FFFFFF);
+      }
+
+      :host([opened="open"]) #profile,
+      #accountProfile, #powerSettings {
         color: var(--dark-scondary-text-color, rgba(0, 0, 0, 0.54));
       }
+
       #profile {
-        color: var(--title-toolbar-secondary-text-color, #C7CED2);
+        color: var(--header-secondary-text-color, rgba(255, 255, 255, 0.7));
       }
+
       .dropdown-content {
         position: absolute;
         top: 60px;
         z-index: 100;
-        background: var(--primary-background-color,#FFFFFF);
+        background: var(--primary-background-color, #FFFFFF);
         padding: 8px 0;
         right: 0px;
       }
-      .open {
-        background: var(--primary-background-color, #FFFFFF);
-      }
-      paper-icon-button#profile {
-        width: 60px;
-        height: 60px;
-        padding: 12px 16px;
-      }
+
       .dropdown-content .item {
         height: 48px;
         font-size: 16px;
@@ -52,16 +57,16 @@ User profile dropdown for header toolbar
         @apply(--layout-center);
         padding: 0 16px 0 8px;
         cursor: pointer;
-        white-space:nowrap;
+        white-space: nowrap;
       }
 
       .dropdown-content .item:hover {
-        background: var(--medium-theme-background-color,#EEEEEE);
+        background: var(--medium-theme-background-color, #EEEEEE);
       }
 
     </style>
     <paper-icon-button id="profile" icon="social:person" role="button" on-tap="_handleTap"
-                       aria-disabled="false" class$="[[opened]]"></paper-icon-button>
+                       aria-disabled="false"></paper-icon-button>
     <iron-collapse id="userDropdown">
       <paper-material elevation="5" class="dropdown-content" id="user-dropdown">
         <div class="item" on-tap="_openUserProfileDialog">
@@ -83,7 +88,8 @@ User profile dropdown for header toolbar
       properties: {
         opened: {
           type: String,
-          value: ''
+          value: '',
+          reflectToAttribute: true
         },
         userProfileDialog: Object,
         /**
@@ -185,7 +191,7 @@ User profile dropdown for header toolbar
       _openUserProfileDialog: function(event) {
         this.userProfileDialog.openUserProfileDialog();
         if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
-          this.fire('global-loading', {active: true, message:' Loading profile...'})
+          this.fire('global-loading', {active: true, message: ' Loading profile...'})
         }
       },
       _handleTap: function(e) {

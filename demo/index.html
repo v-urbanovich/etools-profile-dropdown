@@ -14,6 +14,14 @@
     <link rel="import" href="../user-profile-dialog.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
+      :root {
+        --demo-snippet-demo: {
+          background: #5DC9CD;
+        }
+      }
+      #element-container {
+        background: #2A3C46;
+      }
     </style>
   </head>
   <body>
@@ -21,7 +29,9 @@
       <h3>Basic etools-profile-dropdown demo</h3>
       <demo-snippet>
         <template>
-          <etools-profile-dropdown></etools-profile-dropdown>
+          <div id="element-container">
+            <etools-profile-dropdown></etools-profile-dropdown>
+          </div>
         </template>
       </demo-snippet>
     </div>
