@@ -147,7 +147,9 @@ User profile dropdown for header toolbar
         profile: {
           type: Object,
           notify: true
-        }
+        },
+
+        _loadingProfileMsgActive: Boolean
       },
       observers: [
         '_dataLoaded(sections, offices,users,profile)',
@@ -175,7 +177,10 @@ User profile dropdown for header toolbar
           this.userProfileDialog.offices = this.offices;
           this.userProfileDialog.users = this.users;
           this.userProfileDialog.sections = this.sections;
-          this.fire('global-loading');
+          if (this._loadingProfileMsgActive) {
+            this.set('_loadingProfileMsgActive', false);
+            this.fire('global-loading');
+          }
         }
       },
       _allHaveValues: function() {
@@ -191,7 +196,8 @@ User profile dropdown for header toolbar
       _openUserProfileDialog: function(event) {
         this.userProfileDialog.openUserProfileDialog();
         if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
-          this.fire('global-loading', {active: true, message: ' Loading profile...'})
+          this.fire('global-loading', {active: true, message: 'Loading profile...'});
+          this.set('_loadingProfileMsgActive', true);
         }
       },
       _handleTap: function(e) {
