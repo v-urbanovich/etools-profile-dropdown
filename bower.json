@@ -13,12 +13,16 @@
     "etools-dialog": "^1.0.11",
     "paper-input": "^1.1.20",
     "paper-toolbar": "^1.1.7",
-    "etools-searchable-multiselection-menu": "^2.0.0"
+    "etools-searchable-multiselection-menu": "^2.0.0",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4"
   }
 }
