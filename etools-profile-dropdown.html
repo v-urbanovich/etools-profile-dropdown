@@ -1,0 +1,233 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/social-icons.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-styles/element-styles/paper-material-styles.html">
+
+<link rel="import" href="user-profile-dialog.html">
+<link rel="import" href="scripts/lodash.html">
+
+<dom-module id="etools-profile-dropdown">
+  <template>
+    <style include="paper-material-styles">
+      :host {
+        @apply --layout-horizontal;
+        @apply --layout-center;
+        @apply --layout-center-justified;
+        position: relative;
+        width: 60px;
+        height: 60px;
+      }
+
+      :host([opened]) {
+        background: var(--primary-background-color, #FFFFFF);
+      }
+
+      :host([opened]) #profile,
+      #accountProfile, #powerSettings {
+        color: var(--dark-scondary-text-color, rgba(0, 0, 0, 0.54));
+      }
+
+      #profile {
+        color: var(--header-secondary-text-color, rgba(255, 255, 255, 0.7));
+      }
+
+      #user-dropdown {
+        z-index: 100;
+        background: var(--primary-background-color, #FFFFFF);
+        padding: 8px 0;
+        right: 0;
+      }
+
+      #user-dropdown .item {
+        height: 48px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.87);
+        @apply --layout-horizontal;
+        @apply --layout-center;
+        padding: 0 16px 0 8px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      #user-dropdown .item:hover {
+        background: var(--medium-theme-background-color, #EEEEEE);
+      }
+    </style>
+
+    <paper-icon-button id="profile" icon="social:person" role="button" on-tap="_toggleMenu"></paper-icon-button>
+    <iron-dropdown id="userDropdown" horizontal-align="right" vertical-align="top"
+                   vertical-offset="60" opened="{{opened}}">
+      <div id="user-dropdown" class="paper-material" elevation="5" slot="dropdown-content">
+        <div class="item" on-tap="_openUserProfileDialog">
+          <paper-icon-button id="accountProfile" icon="account-circle"></paper-icon-button>
+          Profile
+        </div>
+        <div class="item" on-tap="_logout">
+          <paper-icon-button id="powerSettings" icon="power-settings-new"></paper-icon-button>
+          Sign out
+        </div>
+      </div>
+    </iron-dropdown>
+
+  </template>
+
+  <script>
+    /**
+     * `etools-profile-dropdown`
+     * User profile dropdown for header toolbar.
+     *
+     * @customElement
+     * @polymer
+     * @appliesMixin Polymer.GestureEventListeners
+     * @demo demo/index.html
+     */
+    class EtoolsProfileDropdown extends Polymer.GestureEventListeners(Polymer.Element) {
+      static get is() { return 'etools-profile-dropdown'; }
+      static get properties() {
+        return {
+          opened: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true
+          },
+          userProfileDialog: Object,
+          /**
+           *
+           * Expected structure of array elements :
+           *
+           *      el = {
+           *        label: 'element label',
+           *        value: '234'
+           *      }
+           * @type (ArrayBuffer|ArrayBufferView)
+           */
+          sections: {
+            type: Array,
+            notify: true
+          },
+
+          /**
+           *
+           * Expected structure of array elements :
+           *
+           *      el = {
+           *        label: 'element label',
+           *        value: '234'
+           *      }
+           * @type (ArrayBuffer|ArrayBufferView)
+           */
+          offices: {
+            type: Array,
+            notify: true,
+          },
+
+          /**
+           *
+           * Expected structure of array elements :
+           *
+           *      user = {
+           *        label: user.full_name,
+           *        value: user.id
+           *      }
+           * @type (ArrayBuffer|ArrayBufferView)
+           */
+          users: {
+            type: Object,
+            notify: true
+          },
+
+          /**
+           *
+           *  Profile object should be according to api endpoint
+           *  `/users/myprofile/`
+           *  and all modifications should be POSTed to the same endpoint
+           */
+          profile: {
+            type: Object,
+            notify: true
+          },
+
+          _loadingProfileMsgActive: Boolean
+        };
+      }
+
+      static get observers() {
+        return [
+          '_dataLoaded(sections, offices, users, profile)'
+        ];
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this.userProfileDialog = document.createElement('etools-user-profile-dialog');
+        this.userProfileDialog.setAttribute('id', 'userProfileDialog');
+        this.userProfileDialog.addEventListener('trigger-profile-save', (e) => {
+          this.dispatchEvent(new CustomEvent('save-profile',
+              {detail: e.detail, bubbles: true, composed: true}));
+        }, false);
+
+        document.querySelector('body').appendChild(this.userProfileDialog);
+      }
+
+      _dataLoaded() {
+        if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+          this.userProfileDialog.profile = this.profile;
+          this.userProfileDialog.offices = this.offices;
+          this.userProfileDialog.users = this.users;
+          this.userProfileDialog.sections = this.sections;
+          if (this._loadingProfileMsgActive) {
+            this.set('_loadingProfileMsgActive', false);
+            this.dispatchEvent(new CustomEvent('global-loading', {bubbles: true, composed: true}));
+          }
+        }
+      }
+
+      _allHaveValues() {
+        let args = _.toArray(arguments);
+        return args.reduce((hasVal, prop) => {
+          return !_.isEmpty(this[prop]) && hasVal;
+        }, true);
+      }
+
+      _logout() {
+        this.dispatchEvent(new CustomEvent('sign-out', {bubbles: true, composed: true}));
+        this.set('opened', false);
+      }
+
+      _openUserProfileDialog() {
+        this.userProfileDialog.openUserProfileDialog();
+        if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+          this.dispatchEvent(new CustomEvent('global-loading', {
+            detail: {active: true, message: 'Loading profile...'},
+            bubbles: true,
+            composed: true
+          }));
+          this.set('_loadingProfileMsgActive', true);
+        }
+        this.set('opened', false);
+      }
+
+      _toggleMenu() {
+        this.set('opened', !this.opened);
+      }
+
+
+      _isInPath(path, prop, value) {
+        path = path || [];
+        for (let i = 0; i < path.length; i++) {
+          if (path[i][prop] === value) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+    }
+
+    window.customElements.define(EtoolsProfileDropdown.is, EtoolsProfileDropdown);
+  </script>
+</dom-module>
