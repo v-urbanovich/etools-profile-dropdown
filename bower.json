@@ -12,7 +12,7 @@
     "iron-icons": "PolymerElements/iron-icons#^2.0.1",
     "paper-input": "PolymerElements/paper-input#^2.0.5",
     "lodash": "^4.17.4",
-    "etools-dropdown": "3702570a65ee9e193f9c98b0a755f09150a76181",
+    "etools-dropdown": "811a88d",
     "etools-dialog": "6c243a3",
     "iron-dropdown": "PolymerElements/iron-dropdown#^2.1.0"
   },
