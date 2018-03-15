@@ -44,14 +44,14 @@
       #profile-content {
         overflow: hidden;
         box-sizing: border-box;
-        @apply(--user-profile-dropdown-content);
+        @apply --user-profile-dropdown-content;
       }
       .row-h {
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal;
       }
       .flex-c {
         /* flex container */
-        @apply(--layout-flex);
+        @apply --layout-flex;
       }
       .row-h + .row-h, .row-v + .row-v {
         margin-top: 20px;
@@ -60,7 +60,7 @@
         margin-top: 0;
       }
       .col {
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal;
         box-sizing: border-box;
       }
       .col:not(:first-child) {
@@ -85,7 +85,7 @@
             <etools-searchable-multiselection-menu id="office"
                                                    label="Office"
                                                    placeholder="&#8212;"
-                                                   selected="{{profile.office}}"
+                                                   selected="{{workingProfile.office}}"
                                                    options="[[offices]]"
                                                    update-selected
                                                    no-change-event
@@ -97,7 +97,7 @@
             <etools-searchable-multiselection-menu id="section"
                                                    label="Section"
                                                    placeholder="&#8212;"
-                                                   selected="{{profile.section}}"
+                                                   selected="{{workingProfile.section}}"
                                                    options="[[sections]]"
                                                    update-selected
                                                    no-change-event
@@ -108,11 +108,11 @@
         </div>
         <div class="row-h flex-c">
           <div class="col col-6">
-            <paper-input label="Job title" value="{{profile.job_title}}" placeholder="&#8212;"></paper-input>
+            <paper-input label="Job title" value="{{workingProfile.job_title}}" placeholder="&#8212;"></paper-input>
           </div>
           <div class="col col-6">
             <paper-input  label="Phone number"
-                          value="{{profile.phone_number}}"
+                          value="{{workingProfile.phone_number}}"
                           placeholder="&#8212;"
                           allowed-pattern="[0-9\ \.\+\-\(\)]">
             </paper-input>
@@ -123,7 +123,7 @@
             <paper-input id="supervisor"
                          label="My supervisor"
                          placeholder="&#8212;"
-                         value="[[profile.supervisor]]"
+                         value="[[workingProfile.supervisor]]"
                          readonly>
             </paper-input>
           </div>
@@ -131,7 +131,7 @@
             <etools-searchable-multiselection-menu id="oic"
                                                    label="My OIC"
                                                    placeholder="&#8212;"
-                                                   selected="{{profile.oic}}"
+                                                   selected="{{workingProfile.oic}}"
                                                    options="[[users]]"
                                                    update-selected
                                                    no-change-event
@@ -146,7 +146,7 @@
                                                    label="Available workspaces"
                                                    placeholder="&#8212;"
                                                    selected="[[availableCountryIds]]"
-                                                   options="[[profile.countries_available]]"
+                                                   options="[[workingProfile.countries_available]]"
                                                    custom-object-options
                                                    update-selected
                                                    option-value="id"
@@ -163,7 +163,7 @@
                                                    label="My Groups"
                                                    placeholder="&#8212;"
                                                    selected="[[availableGroups]]"
-                                                   options="[[profile.groups]]"
+                                                   options="[[workingProfile.groups]]"
                                                    custom-object-options
                                                    update-selected
                                                    option-value="id"
@@ -179,7 +179,7 @@
             <etools-searchable-multiselection-menu id="supervisees"
                                                    label="My supervisees"
                                                    placeholder="&#8212;"
-                                                   selected="[[profile.supervisees]]"
+                                                   selected="[[workingProfile.supervisees]]"
                                                    options="[[users]]"
                                                    custom-object-options
                                                    update-selected
@@ -204,16 +204,22 @@
         properties: {
           profile: {
             type: Object,
-            notify: true
+            observer: '_resetWorkingProfile'
+          },
+          workingProfile: {
+            type: Object
           },
           availableCountryIds: Array,
-          availableGroups: Array,
+          availableGroups: Array
         },
         observers: [
-          '_mapIds(profile)'
+          '_mapIds(workingProfile)'
         ],
         openUserProfileDialog: function() {
           this.$.userProfileDialog.opened = true;
+        },
+        _resetWorkingProfile: function() {
+          this.set('workingProfile', JSON.parse(JSON.stringify(this.profile)));
         },
         _centerDialog: function() {
           var d = Polymer.dom(this.$.userProfileDialog.root).querySelector('paper-dialog');
@@ -224,21 +230,25 @@
         _closeUserProfileDialog: function(event) {
           if (event.detail.confirmed) {
             this.saveData();
+          } else {
+            this._resetWorkingProfile();
           }
         },
         _mapIds: function(profile) {
-          var availableCountryIds = _.map(this.profile.countries_available, 'id');
-          var availableGroups = _.map(this.profile.groups, 'id');
+          var availableCountryIds = _.map(this.workingProfile.countries_available, 'id');
+          var availableGroups = _.map(this.workingProfile.groups, 'id');
 
           this.set('availableCountryIds', availableCountryIds);
           this.set('availableGroups', availableGroups);
         },
+        // Is this needed?
         resetData: function() {
           this.set('profile', JSON.parse(JSON.stringify(this.userProfileModel)));
         },
         saveData: function() {
-          this.fire('hacky-save', {profile: this.profile});
+          this.fire('hacky-save', {profile: this.workingProfile});
         },
+        // where is this used?
         _convertOffices: function(data) {
           var offices = data.map(function(office) {
             return {label: office.name, value: office.id}

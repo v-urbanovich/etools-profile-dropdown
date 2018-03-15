@@ -12,16 +12,16 @@
 `etools-profile-dropdown`
 User profile dropdown for header toolbar
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="etools-profile-dropdown">
   <template>
     <style>
       :host {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
+        @apply --layout-horizontal;
+        @apply --layout-center;
+        @apply --layout-center-justified;
         position: relative;
         width: 60px;
         height: 60px;
@@ -53,8 +53,8 @@ User profile dropdown for header toolbar
         height: 48px;
         font-size: 16px;
         color: rgba(0, 0, 0, 0.87);
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
+        @apply --layout-horizontal;
+        @apply --layout-center;
         padding: 0 16px 0 8px;
         cursor: pointer;
         white-space: nowrap;
@@ -120,7 +120,7 @@ User profile dropdown for header toolbar
          */
         offices: {
           type: Array,
-          notify: true,
+          notify: true
         },
 
         /**
@@ -158,7 +158,7 @@ User profile dropdown for header toolbar
         this.userProfileDialog = document.createElement('user-profile-dialog');
         this.userProfileDialog.setAttribute('id', 'userProfileDialog');
         this.userProfileDialog.addEventListener('hacky-save', function(e) {
-          this.fire('save-profile', e.detail)
+          this.fire('save-profile', e.detail);
         }.bind(this), false);
 
         Polymer.dom(document.querySelector('body')).appendChild(this.userProfileDialog);
@@ -217,7 +217,6 @@ User profile dropdown for header toolbar
             this._handleTap();
           }
         }
-
       },
       _isInPath: function(path, prop, value) {
         path = path || [];
@@ -227,8 +226,7 @@ User profile dropdown for header toolbar
           }
         }
         return false;
-      },
-
+      }
     });
   </script>
 </dom-module>
