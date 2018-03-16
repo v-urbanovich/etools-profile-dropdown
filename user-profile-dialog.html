@@ -215,12 +215,6 @@
         openUserProfileDialog: function() {
           this.$.userProfileDialog.opened = true;
         },
-        _centerDialog: function() { // TODO: is this being used?
-          var d = Polymer.dom(this.$.userProfileDialog.root).querySelector('paper-dialog');
-          if (d) {
-            d.center();
-          }
-        },
         _closeUserProfileDialog: function(event) {
           if (event.detail.confirmed) {
             this.saveData();
@@ -235,17 +229,8 @@
           this.set('availableCountryIds', availableCountryIds);
           this.set('availableGroups', availableGroups);
         },
-        resetData: function() { // TODO: is this being used?
-          this.set('profile', JSON.parse(JSON.stringify(this.userProfileModel)));
-        },
         saveData: function() {
           this.fire('hacky-save', {profile: this.profile});
-        },
-        _convertOffices: function(data) { // TODO: is this being used?
-          var offices = data.map(function(office) {
-            return {label: office.name, value: office.id}
-          });
-          this.set('allOffices', offices);
         }
       });
     })();
