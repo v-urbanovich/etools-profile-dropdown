@@ -218,8 +218,6 @@
         _closeUserProfileDialog: function(event) {
           if (event.detail.confirmed) {
             this.saveData();
-          } else {
-            this.resetData();
           }
         },
         _mapIds: function(profile) {
@@ -231,9 +229,6 @@
         },
         saveData: function() {
           this.fire('save-profile-data', {profile: this.profile});
-        },
-        resetData: function() {
-          this.fire('reset-profile-data');
         }
       });
     })();

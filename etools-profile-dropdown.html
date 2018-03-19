@@ -158,7 +158,6 @@ User profile dropdown for header toolbar
         this.userProfileDialog = document.createElement('user-profile-dialog');
         this.userProfileDialog.setAttribute('id', 'userProfileDialog');
         this.userProfileDialog.addEventListener('save-profile-data', this._handleProfileDataSave.bind(this), false);
-        this.userProfileDialog.addEventListener('reset-profile-data', this._handleProfileDataReset.bind(this), false);
 
         Polymer.dom(document.querySelector('body')).appendChild(this.userProfileDialog);
       },
@@ -174,16 +173,11 @@ User profile dropdown for header toolbar
         e.stopImmediatePropagation();
         this.fire('save-profile', e.detail);
       },
-      _handleProfileDataReset(e) {
-        e.stopImmediatePropagation();
-        this._setDialogProfileData();
-      },
       _setDialogProfileData: function() {
         this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
       },
       _dataLoaded: function() {
         if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
-          this._setDialogProfileData();
           this.userProfileDialog.offices = this.offices;
           this.userProfileDialog.users = this.users;
           this.userProfileDialog.sections = this.sections;
@@ -204,6 +198,7 @@ User profile dropdown for header toolbar
         this.fire('sign-out');
       },
       _openUserProfileDialog: function(event) {
+        this._setDialogProfileData();
         this.userProfileDialog.openUserProfileDialog();
         if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
           this.fire('global-loading', {active: true, message: 'Loading profile...'});
