@@ -152,7 +152,7 @@ User profile dropdown for header toolbar
         _loadingProfileMsgActive: Boolean
       },
       observers: [
-        '_dataLoaded(sections, offices,users,profile)',
+        '_dataLoaded(sections, offices,users,profile)'
       ],
       ready: function() {
         this.userProfileDialog = document.createElement('user-profile-dialog');
@@ -194,8 +194,8 @@ User profile dropdown for header toolbar
         }
       },
       _allHaveValues: function() {
-        var self = this;
-        var args = _.toArray(arguments);
+        let self = this;
+        let args = _.toArray(arguments);
         return args.reduce(function(hasVal, prop) {
           return !_.isEmpty(self[prop]) && hasVal;
         }, true);
@@ -230,7 +230,7 @@ User profile dropdown for header toolbar
       },
       _isInPath: function(path, prop, value) {
         path = path || [];
-        for (var i = 0; i < path.length; i++) {
+        for (let i = 0; i < path.length; i++) {
           if (path[i][prop] === value) {
             return true;
           }

@@ -207,7 +207,7 @@
             notify: true
           },
           availableCountryIds: Array,
-          availableGroups: Array,
+          availableGroups: Array
         },
         observers: [
           '_mapIds(profile)'
@@ -223,8 +223,8 @@
           }
         },
         _mapIds: function(profile) {
-          var availableCountryIds = _.map(this.profile.countries_available, 'id');
-          var availableGroups = _.map(this.profile.groups, 'id');
+          let availableCountryIds = _.map(this.profile.countries_available, 'id');
+          let availableGroups = _.map(this.profile.groups, 'id');
 
           this.set('availableCountryIds', availableCountryIds);
           this.set('availableGroups', availableGroups);
