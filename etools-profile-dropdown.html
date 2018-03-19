@@ -157,14 +157,8 @@ User profile dropdown for header toolbar
       ready: function() {
         this.userProfileDialog = document.createElement('user-profile-dialog');
         this.userProfileDialog.setAttribute('id', 'userProfileDialog');
-
-        this.userProfileDialog.addEventListener('save-profile-data', function(e) {
-          this.fire('save-profile', e.detail);
-        }.bind(this), false);
-
-        this.userProfileDialog.addEventListener('reset-profile-data', function(e) {
-          this._setDialogProfileData();
-        }.bind(this), false);
+        this.userProfileDialog.addEventListener('save-profile-data', this._handleProfileDataSave.bind(this), false);
+        this.userProfileDialog.addEventListener('reset-profile-data', this._handleProfileDataReset.bind(this), false);
 
         Polymer.dom(document.querySelector('body')).appendChild(this.userProfileDialog);
       },
@@ -175,6 +169,14 @@ User profile dropdown for header toolbar
         if (this.userProfileDialog) {
           Polymer.dom(document.querySelector('body')).removeChild(this.userProfileDialog);
         }
+      },
+      _handleProfileDataSave(e) {
+        e.stopImmediatePropagation();
+        this.fire('save-profile', e.detail);
+      },
+      _handleProfileDataReset(e) {
+        e.stopImmediatePropagation();
+        this._setDialogProfileData();
       },
       _setDialogProfileData: function() {
         this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
