@@ -219,7 +219,7 @@
           if (event.detail.confirmed) {
             this.saveData();
           } else {
-            this.fire('reset-profile-data');
+            this.resetData();
           }
         },
         _mapIds: function(profile) {
@@ -230,7 +230,10 @@
           this.set('availableGroups', availableGroups);
         },
         saveData: function() {
-          this.fire('hacky-save', {profile: this.profile});
+          this.fire('save-profile-data', {profile: this.profile});
+        },
+        resetData: function() {
+          this.fire('reset-profile-data');
         }
       });
     })();
