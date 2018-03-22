@@ -139,7 +139,7 @@
             <etools-multi-selection-menu id="workspaces"
                                          label="Available workspaces"
                                          placeholder="&#8212;"
-                                         selected="[[availableCountryIds]]"
+                                         selected-values="[[availableCountryIds]]"
                                          options="[[profile.countries_available]]"
                                          option-value="id"
                                          option-label="name"
@@ -152,7 +152,7 @@
             <etools-multi-selection-menu id="groups"
                                          label="My Groups"
                                          placeholder="&#8212;"
-                                         selected="[[availableGroups]]"
+                                         selected-values="[[availableGroups]]"
                                          options="[[profile.groups]]"
                                          option-value="id"
                                          option-label="name"
@@ -165,7 +165,7 @@
             <etools-multi-selection-menu id="supervisees"
                                          label="My supervisees"
                                          placeholder="&#8212;"
-                                         selected="[[profile.supervisees]]"
+                                         selected-values="[[profile.supervisees]]"
                                          options="[[users]]"
                                          readonly>
             </etools-multi-selection-menu>
