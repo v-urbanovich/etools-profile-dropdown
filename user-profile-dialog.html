@@ -44,14 +44,14 @@
       #profile-content {
         overflow: hidden;
         box-sizing: border-box;
-        @apply(--user-profile-dropdown-content);
+        @apply --user-profile-dropdown-content;
       }
       .row-h {
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal;
       }
       .flex-c {
         /* flex container */
-        @apply(--layout-flex);
+        @apply --layout-flex;
       }
       .row-h + .row-h, .row-v + .row-v {
         margin-top: 20px;
@@ -60,7 +60,7 @@
         margin-top: 0;
       }
       .col {
-        @apply(--layout-horizontal);
+        @apply --layout-horizontal;
         box-sizing: border-box;
       }
       .col:not(:first-child) {
@@ -111,7 +111,11 @@
             <paper-input label="Job title" value="{{profile.job_title}}" placeholder="&#8212;"></paper-input>
           </div>
           <div class="col col-6">
-            <paper-input label="Phone number" value="{{profile.phone_number}}" placeholder="&#8212;"></paper-input>
+            <paper-input  label="Phone number"
+                          value="{{profile.phone_number}}"
+                          placeholder="&#8212;"
+                          allowed-pattern="[0-9\ \.\+\-\(\)]">
+            </paper-input>
           </div>
         </div>
         <div class="row-h flex-c">
@@ -203,7 +207,7 @@
             notify: true
           },
           availableCountryIds: Array,
-          availableGroups: Array,
+          availableGroups: Array
         },
         observers: [
           '_mapIds(profile)'
@@ -211,38 +215,22 @@
         openUserProfileDialog: function() {
           this.$.userProfileDialog.opened = true;
         },
-        _centerDialog: function() {
-          var d = Polymer.dom(this.$.userProfileDialog.root).querySelector('paper-dialog');
-          if (d) {
-            d.center();
-          }
-        },
         _closeUserProfileDialog: function(event) {
           if (event.detail.confirmed) {
             this.saveData();
           }
         },
         _mapIds: function(profile) {
-          var availableCountryIds = _.map(this.profile.countries_available, 'id');
-          var availableGroups = _.map(this.profile.groups, 'id');
+          let availableCountryIds = _.map(this.profile.countries_available, 'id');
+          let availableGroups = _.map(this.profile.groups, 'id');
 
           this.set('availableCountryIds', availableCountryIds);
           this.set('availableGroups', availableGroups);
         },
-        resetData: function() {
-          this.set('profile', JSON.parse(JSON.stringify(this.userProfileModel)));
-        },
         saveData: function() {
-          this.fire('hacky-save', {profile: this.profile});
-        },
-        _convertOffices: function(data) {
-          var offices = data.map(function(office) {
-            return {label: office.name, value: office.id}
-          });
-          this.set('allOffices', offices);
+          this.fire('save-profile-data', {profile: this.profile});
         }
       });
     })();
   </script>
 </dom-module>
-

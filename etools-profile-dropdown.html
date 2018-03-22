@@ -12,16 +12,16 @@
 `etools-profile-dropdown`
 User profile dropdown for header toolbar
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="etools-profile-dropdown">
   <template>
     <style>
       :host {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
+        @apply --layout-horizontal;
+        @apply --layout-center;
+        @apply --layout-center-justified;
         position: relative;
         width: 60px;
         height: 60px;
@@ -53,8 +53,8 @@ User profile dropdown for header toolbar
         height: 48px;
         font-size: 16px;
         color: rgba(0, 0, 0, 0.87);
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
+        @apply --layout-horizontal;
+        @apply --layout-center;
         padding: 0 16px 0 8px;
         cursor: pointer;
         white-space: nowrap;
@@ -120,7 +120,7 @@ User profile dropdown for header toolbar
          */
         offices: {
           type: Array,
-          notify: true,
+          notify: true
         },
 
         /**
@@ -152,14 +152,12 @@ User profile dropdown for header toolbar
         _loadingProfileMsgActive: Boolean
       },
       observers: [
-        '_dataLoaded(sections, offices,users,profile)',
+        '_dataLoaded(sections, offices,users,profile)'
       ],
       ready: function() {
         this.userProfileDialog = document.createElement('user-profile-dialog');
         this.userProfileDialog.setAttribute('id', 'userProfileDialog');
-        this.userProfileDialog.addEventListener('hacky-save', function(e) {
-          this.fire('save-profile', e.detail)
-        }.bind(this), false);
+        this.userProfileDialog.addEventListener('save-profile-data', this._handleProfileDataSave.bind(this), false);
 
         Polymer.dom(document.querySelector('body')).appendChild(this.userProfileDialog);
       },
@@ -171,9 +169,15 @@ User profile dropdown for header toolbar
           Polymer.dom(document.querySelector('body')).removeChild(this.userProfileDialog);
         }
       },
+      _handleProfileDataSave(e) {
+        e.stopImmediatePropagation();
+        this.fire('save-profile', e.detail);
+      },
+      _setDialogProfileData: function() {
+        this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
+      },
       _dataLoaded: function() {
         if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
-          this.userProfileDialog.profile = this.profile;
           this.userProfileDialog.offices = this.offices;
           this.userProfileDialog.users = this.users;
           this.userProfileDialog.sections = this.sections;
@@ -184,8 +188,8 @@ User profile dropdown for header toolbar
         }
       },
       _allHaveValues: function() {
-        var self = this;
-        var args = _.toArray(arguments);
+        let self = this;
+        let args = _.toArray(arguments);
         return args.reduce(function(hasVal, prop) {
           return !_.isEmpty(self[prop]) && hasVal;
         }, true);
@@ -194,6 +198,7 @@ User profile dropdown for header toolbar
         this.fire('sign-out');
       },
       _openUserProfileDialog: function(event) {
+        this._setDialogProfileData();
         this.userProfileDialog.openUserProfileDialog();
         if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
           this.fire('global-loading', {active: true, message: 'Loading profile...'});
@@ -217,18 +222,16 @@ User profile dropdown for header toolbar
             this._handleTap();
           }
         }
-
       },
       _isInPath: function(path, prop, value) {
         path = path || [];
-        for (var i = 0; i < path.length; i++) {
+        for (let i = 0; i < path.length; i++) {
           if (path[i][prop] === value) {
             return true;
           }
         }
         return false;
-      },
-
+      }
     });
   </script>
 </dom-module>
