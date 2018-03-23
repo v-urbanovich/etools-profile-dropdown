@@ -169,7 +169,7 @@ User profile dropdown for header toolbar
           Polymer.dom(document.querySelector('body')).removeChild(this.userProfileDialog);
         }
       },
-      _handleProfileDataSave(e) {
+      _handleProfileDataSave: function(e) {
         e.stopImmediatePropagation();
         this.fire('save-profile', e.detail);
       },
