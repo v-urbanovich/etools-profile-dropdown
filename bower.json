@@ -12,8 +12,8 @@
     "iron-icons": "PolymerElements/iron-icons#^2.0.1",
     "paper-input": "PolymerElements/paper-input#^2.0.5",
     "lodash": "^4.17.4",
-    "etools-dropdown": "07c37bc",
-    "etools-dialog": "c943e5f",
+    "etools-dropdown": "c19b1405",
+    "etools-dialog": "e9ef5bed",
     "iron-dropdown": "PolymerElements/iron-dropdown#^2.1.0"
   },
   "devDependencies": {
