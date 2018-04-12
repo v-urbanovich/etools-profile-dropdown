@@ -1,5 +1,4 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-icons/social-icons.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
@@ -58,15 +57,15 @@
       }
     </style>
 
-    <paper-icon-button id="profile" icon="social:person" role="button" on-tap="_toggleMenu"></paper-icon-button>
+    <paper-icon-button id="profile" icon="social:person" role="button" on-click="_toggleMenu"></paper-icon-button>
     <iron-dropdown id="userDropdown" horizontal-align="right" vertical-align="top"
                    vertical-offset="60" opened="{{opened}}">
       <div id="user-dropdown" class="paper-material" elevation="5" slot="dropdown-content">
-        <div class="item" on-tap="_openUserProfileDialog">
+        <div class="item" on-click="_openUserProfileDialog">
           <paper-icon-button id="accountProfile" icon="account-circle"></paper-icon-button>
           Profile
         </div>
-        <div class="item" on-tap="_logout">
+        <div class="item" on-click="_logout">
           <paper-icon-button id="powerSettings" icon="power-settings-new"></paper-icon-button>
           Sign out
         </div>
@@ -76,17 +75,21 @@
   </template>
 
   <script>
+    'use strict';
+
     /**
      * `etools-profile-dropdown`
      * User profile dropdown for header toolbar.
      *
      * @customElement
      * @polymer
-     * @appliesMixin Polymer.GestureEventListeners
      * @demo demo/index.html
      */
-    class EtoolsProfileDropdown extends Polymer.GestureEventListeners(Polymer.Element) {
-      static get is() { return 'etools-profile-dropdown'; }
+    class EtoolsProfileDropdown extends Polymer.Element {
+      static get is() {
+        return 'etools-profile-dropdown';
+      }
+
       static get properties() {
         return {
           opened: {
@@ -122,7 +125,7 @@
            */
           offices: {
             type: Array,
-            notify: true,
+            notify: true
           },
 
           /**
@@ -165,11 +168,6 @@
         super.connectedCallback();
         this.userProfileDialog = document.createElement('etools-user-profile-dialog');
         this.userProfileDialog.setAttribute('id', 'userProfileDialog');
-        this.userProfileDialog.addEventListener('trigger-profile-save', (e) => {
-          this.dispatchEvent(new CustomEvent('save-profile',
-              {detail: e.detail, bubbles: true, composed: true}));
-        }, false);
-
         document.querySelector('body').appendChild(this.userProfileDialog);
       }
 
@@ -186,6 +184,10 @@
         }
       }
 
+      _setDialogProfileData() {
+        this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
+      }
+
       _allHaveValues() {
         let args = _.toArray(arguments);
         return args.reduce((hasVal, prop) => {
@@ -199,6 +201,7 @@
       }
 
       _openUserProfileDialog() {
+        this._setDialogProfileData();
         this.userProfileDialog.openUserProfileDialog();
         if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
           this.dispatchEvent(new CustomEvent('global-loading', {

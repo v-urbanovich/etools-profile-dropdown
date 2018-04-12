@@ -172,7 +172,7 @@
 
     /**
      * @polymer
-     * @mixinFunction
+     * @customElement
      */
     class EtoolsUserProfileDialog extends Polymer.Element {
 
@@ -199,13 +199,6 @@
         this.$.userProfileDialog.opened = true;
       }
 
-      _centerDialog() {
-        let d = this.$.userProfileDialog.shadowRoot.querySelector('paper-dialog');
-        if (d) {
-          d.center();
-        }
-      }
-
       _closeUserProfileDialog(e) {
         if (e.detail.confirmed) {
           this.saveData();
@@ -223,23 +216,12 @@
         this.set('availableGroups', availableGroups);
       }
 
-      resetData() {
-        this.set('profile', JSON.parse(JSON.stringify(this.userProfileModel)));
-      }
-
       saveData() {
-        this.dispatchEvent(new CustomEvent('trigger-profile-save', {
+        this.dispatchEvent(new CustomEvent('save-profile', {
           detail: {profile: this.profile},
           bubbles: true,
           composed: true
         }));
-      }
-
-      _convertOffices(data) {
-        let offices = data.map((office) => {
-          return {label: office.name, value: office.id}
-        });
-        this.set('allOffices', offices);
       }
 
     }
