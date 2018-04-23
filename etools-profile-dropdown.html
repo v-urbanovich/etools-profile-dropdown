@@ -189,7 +189,7 @@
       }
 
       _allHaveValues() {
-        let args = _.toArray(arguments);
+        let args = _.toArray(arguments); // eslint-disable-line
         return args.reduce((hasVal, prop) => {
           return !_.isEmpty(this[prop]) && hasVal;
         }, true);
