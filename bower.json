@@ -13,7 +13,7 @@
     "paper-input": "PolymerElements/paper-input#^2.0.5",
     "lodash": "^4.17.4",
     "etools-dropdown": "2.0.0",
-    "etools-dialog": "e9ef5bed",
+    "etools-dialog": "2.0.0",
     "iron-dropdown": "PolymerElements/iron-dropdown#^2.1.0"
   },
   "devDependencies": {
