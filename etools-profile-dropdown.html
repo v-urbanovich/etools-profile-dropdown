@@ -167,8 +167,17 @@
       connectedCallback() {
         super.connectedCallback();
         this.userProfileDialog = document.createElement('etools-user-profile-dialog');
+        this.userProfileDialog.addEventListener('save-profile', this._dispatchSaveProfileEvent.bind(this));
         this.userProfileDialog.setAttribute('id', 'userProfileDialog');
         document.querySelector('body').appendChild(this.userProfileDialog);
+      }
+
+      _dispatchSaveProfileEvent(ev) {
+        this.dispatchEvent(new CustomEvent('save-profile', {
+          detail: ev.detail,
+          bubbles: true,
+          composed: true
+        }));
       }
 
       _dataLoaded() {
