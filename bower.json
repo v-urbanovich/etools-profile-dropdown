@@ -3,27 +3,4 @@
   "description": "User profile dropdown for header toolbar.",
   "version": "3.0.2",
   "license": "https://github.com/unicef-polymer/etools-info-tooltip/blob/master/LICENSE.md",
-  "main": "etools-profile-dropdown.html",
-  "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.1",
-    "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.1",
-    "paper-styles": "PolymerElements/paper-styles#^2.0.0",
-    "iron-icons": "PolymerElements/iron-icons#^2.0.1",
-    "paper-input": "PolymerElements/paper-input#^2.0.5",
-    "lodash": "^4.17.4",
-    "etools-dropdown": "fd66d11115aa184db390ea1bd903c188e8ac8a63",
-    "etools-dialog": "2a081d06adf6dc8ec237ef60d74ba0eb36744437",
-    "iron-dropdown": "PolymerElements/iron-dropdown#^2.1.0"
-  },
-  "devDependencies": {
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
-    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "iron-component-page": "PolymerElements/iron-component-page#^3.0.1"
-  },
-  "resolutions": {
-    "polymer": "^2.0.0",
-    "lodash": "^4.17.4"
-  }
 }
