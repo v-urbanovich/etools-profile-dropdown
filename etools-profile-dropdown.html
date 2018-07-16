@@ -92,52 +92,7 @@ User profile dropdown for header toolbar
           reflectToAttribute: true
         },
         userProfileDialog: Object,
-        /**
-         *
-         * Expected structure of array elements :
-         *
-         *      el = {
-         *        label: 'element label',
-         *        value: '234'
-         *      }
-         * @type (ArrayBuffer|ArrayBufferView)
-         */
-
-        sections: {
-          type: Array,
-          notify: true
-        },
-
-        /**
-         *
-         * Expected structure of array elements :
-         *
-         *      el = {
-         *        label: 'element label',
-         *        value: '234'
-         *      }
-         * @type (ArrayBuffer|ArrayBufferView)
-         */
-        offices: {
-          type: Array,
-          notify: true
-        },
-
-        /**
-         *
-         * Expected structure of array elements :
-         *
-         *      user = {
-         *        label: user.full_name,
-         *        value: user.id
-         *      }
-         * @type (ArrayBuffer|ArrayBufferView)
-         */
-        users: {
-          type: Object,
-          notify: true
-        },
-
+        
         /**
          *
          *  Profile object should be according to api endpoint
@@ -152,7 +107,7 @@ User profile dropdown for header toolbar
         _loadingProfileMsgActive: Boolean
       },
       observers: [
-        '_dataLoaded(sections, offices,users,profile)'
+        '_dataLoaded(profile)'
       ],
       ready: function() {
         this.userProfileDialog = document.createElement('user-profile-dialog');
@@ -177,10 +132,7 @@ User profile dropdown for header toolbar
         this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
       },
       _dataLoaded: function() {
-        if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
-          this.userProfileDialog.offices = this.offices;
-          this.userProfileDialog.users = this.users;
-          this.userProfileDialog.sections = this.sections;
+        if (this._allHaveValues('profile')) {
           if (this._loadingProfileMsgActive) {
             this.set('_loadingProfileMsgActive', false);
             this.fire('global-loading');
@@ -200,7 +152,7 @@ User profile dropdown for header toolbar
       _openUserProfileDialog: function(event) {
         this._setDialogProfileData();
         this.userProfileDialog.openUserProfileDialog();
-        if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+        if (!this._allHaveValues('profile')) {
           this.fire('global-loading', {active: true, message: 'Loading profile...'});
           this.set('_loadingProfileMsgActive', true);
         }

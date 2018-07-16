@@ -38,9 +38,6 @@
       paper-material {
         padding: 0;
       }
-
-
-
       #profile-content {
         overflow: hidden;
         box-sizing: border-box;
@@ -66,10 +63,6 @@
       .col:not(:first-child) {
         padding-left: 24px;
       }
-      .col-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-      }
       .col-12 {
         flex: 0 0 100%;
         max-width: 100%;
@@ -80,60 +73,6 @@
     <etools-dialog id="userProfileDialog" size="lg" ok-btn-text="Save" dialog-title="My Profile"
                    on-close="_closeUserProfileDialog">
       <div id="profile-content">
-        <div class="row-h flex-c">
-          <div class="col col-6">
-            <etools-single-selection-menu id="office"
-                                          label="Office"
-                                          placeholder="&#8212;"
-                                          selected="{{profile.office}}"
-                                          options="[[offices]]"
-                                          auto-validate
-                                          error-message="Please select an office">
-            </etools-single-selection-menu>
-          </div>
-          <div class="col col-6">
-            <etools-single-selection-menu id="section"
-                                          label="Section"
-                                          placeholder="&#8212;"
-                                          selected="{{profile.section}}"
-                                          options="[[sections]]"
-                                          auto-validate
-                                          error-message="Please select a section">
-            </etools-single-selection-menu>
-          </div>
-        </div>
-        <div class="row-h flex-c">
-          <div class="col col-6">
-            <paper-input label="Job title" value="{{profile.job_title}}" placeholder="&#8212;"></paper-input>
-          </div>
-          <div class="col col-6">
-            <paper-input label="Phone number"
-                         value="{{profile.phone_number}}"
-                         placeholder="&#8212;"
-                         allowed-pattern="[0-9\ \.\+\-\(\)]">
-            </paper-input>
-          </div>
-        </div>
-        <div class="row-h flex-c">
-          <div class="col col-6">
-            <paper-input id="supervisor"
-                         label="My supervisor"
-                         placeholder="&#8212;"
-                         value="[[profile.supervisor]]"
-                         readonly>
-            </paper-input>
-          </div>
-          <div class="col col-6">
-            <etools-single-selection-menu id="oic"
-                                          label="My OIC"
-                                          placeholder="&#8212;"
-                                          selected="{{profile.oic}}"
-                                          options="[[users]]"
-                                          auto-validate
-                                          error-message="Please select an OIC">
-            </etools-single-selection-menu>
-          </div>
-        </div>
         <div class="row-h flex-c">
           <div class="col col-12">
             <etools-multi-selection-menu id="workspaces"
@@ -156,17 +95,6 @@
                                          options="[[profile.groups]]"
                                          option-value="id"
                                          option-label="name"
-                                         readonly>
-            </etools-multi-selection-menu>
-          </div>
-        </div>
-        <div class="row-h flex-c">
-          <div class="col col-12">
-            <etools-multi-selection-menu id="supervisees"
-                                         label="My supervisees"
-                                         placeholder="&#8212;"
-                                         selected-values="[[profile.supervisees]]"
-                                         options="[[users]]"
                                          readonly>
             </etools-multi-selection-menu>
           </div>
