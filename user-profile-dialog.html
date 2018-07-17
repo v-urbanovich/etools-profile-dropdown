@@ -59,10 +59,10 @@
         padding-left: 24px;
       }
 
-      .col-6 {
+      /* .col-6 {
         flex: 0 0 50%;
         max-width: 50%;
-      }
+      } */
 
       .col-12 {
         flex: 0 0 100%;
@@ -75,7 +75,8 @@
                    on-close="_closeUserProfileDialog">
 
       <div id="profile-content">
-        <div class="row-h flex-c">
+        <!-- FIELDS HIDDEN AS REQUIRED BY BUSINESS SPECS - CH6215 -->
+        <!-- <div class="row-h flex-c">
           <div class="col col-6">
             <etools-dropdown id="office"
                              label="Office"
@@ -124,7 +125,7 @@
                              error-message="Please select an OIC">
             </etools-dropdown>
           </div>
-        </div>
+        </div> -->
         <div class="row-h flex-c">
           <div class="col col-12">
             <etools-dropdown-multi id="workspaces"
@@ -151,7 +152,7 @@
             </etools-dropdown-multi>
           </div>
         </div>
-        <div class="row-h flex-c">
+        <!-- <div class="row-h flex-c">
           <div class="col col-12">
             <etools-dropdown-multi id="supervisees"
                                    label="My supervisees"
@@ -161,7 +162,7 @@
                                    readonly>
             </etools-dropdown-multi>
           </div>
-        </div>
+        </div> -->
       </div>
 
     </etools-dialog>
@@ -186,9 +187,9 @@
             type: Object,
             notify: true
           },
-          offices: Array,
-          sections: Array,
-          users: Array,
+          // offices: Array,
+          // sections: Array,
+          // users: Array,
           availableCountryIds: Array,
           availableGroups: Array
         };

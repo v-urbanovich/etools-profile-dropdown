@@ -98,50 +98,20 @@
             reflectToAttribute: true
           },
           userProfileDialog: Object,
-          /**
-           *
-           * Expected structure of array elements :
-           *
-           *      el = {
-           *        label: 'element label',
-           *        value: '234'
-           *      }
-           * @type (ArrayBuffer|ArrayBufferView)
-           */
-          sections: {
-            type: Array,
-            notify: true
-          },
+          // sections: {
+          //   type: Array,
+          //   notify: true
+          // },
 
-          /**
-           *
-           * Expected structure of array elements :
-           *
-           *      el = {
-           *        label: 'element label',
-           *        value: '234'
-           *      }
-           * @type (ArrayBuffer|ArrayBufferView)
-           */
-          offices: {
-            type: Array,
-            notify: true
-          },
+          // offices: {
+          //   type: Array,
+          //   notify: true
+          // },
 
-          /**
-           *
-           * Expected structure of array elements :
-           *
-           *      user = {
-           *        label: user.full_name,
-           *        value: user.id
-           *      }
-           * @type (ArrayBuffer|ArrayBufferView)
-           */
-          users: {
-            type: Object,
-            notify: true
-          },
+          // users: {
+          //   type: Object,
+          //   notify: true
+          // },
 
           /**
            *
@@ -160,7 +130,8 @@
 
       static get observers() {
         return [
-          '_dataLoaded(sections, offices, users, profile)'
+          // '_dataLoaded(sections, offices, users, profile)'
+          '_dataLoaded(profile)'
         ];
       }
 
@@ -181,11 +152,12 @@
       }
 
       _dataLoaded() {
-        if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+        // if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+        if (this._allHaveValues('profile')) {
           this.userProfileDialog.profile = this.profile;
-          this.userProfileDialog.offices = this.offices;
-          this.userProfileDialog.users = this.users;
-          this.userProfileDialog.sections = this.sections;
+          // this.userProfileDialog.offices = this.offices;
+          // this.userProfileDialog.users = this.users;
+          // this.userProfileDialog.sections = this.sections;
           if (this._loadingProfileMsgActive) {
             this.set('_loadingProfileMsgActive', false);
             this.dispatchEvent(new CustomEvent('global-loading', {bubbles: true, composed: true}));
@@ -212,7 +184,8 @@
       _openUserProfileDialog() {
         this._setDialogProfileData();
         this.userProfileDialog.openUserProfileDialog();
-        if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+        // if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+        if (!this._allHaveValues('profile')) {
           this.dispatchEvent(new CustomEvent('global-loading', {
             detail: {active: true, message: 'Loading profile...'},
             bubbles: true,
@@ -226,7 +199,6 @@
       _toggleMenu() {
         this.set('opened', !this.opened);
       }
-
 
       _isInPath(path, prop, value) {
         path = path || [];
