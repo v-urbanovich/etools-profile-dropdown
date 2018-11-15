@@ -153,7 +153,7 @@ User profile dropdown for header toolbar
         this._setDialogProfileData();
         this.userProfileDialog.openUserProfileDialog();
         if (!this._allHaveValues('profile')) {
-          this.fire('global-loading', {active: true, message: 'Loading profile...'});
+          this.fire('global-loading', {detail: {active: true, message: 'Loading profile...'}});
           this.set('_loadingProfileMsgActive', true);
         }
       },

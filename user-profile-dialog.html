@@ -79,7 +79,7 @@
                                          label="Available workspaces"
                                          placeholder="&#8212;"
                                          selected-values="[[availableCountryIds]]"
-                                         options="[[profile.countries_available]]"
+                                         options="[[profile.profile.countries_available]]"
                                          option-value="id"
                                          option-label="name"
                                          readonly>
@@ -132,7 +132,7 @@
           }
         },
         _mapIds: function(profile) {
-          let availableCountryIds = _.map(this.profile.countries_available, 'id');
+          let availableCountryIds = _.map(this.profile.profile.countries_available, 'id');
           let availableGroups = _.map(this.profile.groups, 'id');
 
           this.set('availableCountryIds', availableCountryIds);
