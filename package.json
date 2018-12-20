@@ -36,11 +36,11 @@
     "@polymer/polymer": "^3.0.0",
     "bower-away": "^1.1.2",
     "lodash": "^4.17.10",
-    "@bower_components/etools-ajax": "unicef-polymer/etools-ajax#1991c96a652cc807fcf7acc7985ddcdbfd62ca56",
-    "@bower_components/etools-behaviors": "unicef-polymer/etools-behaviors#ab3489ef2826fc2a5a9585b95ffde952b8fdfbb3",
-    "@bower_components/etools-dialog": "unicef-polymer/etools-dialog#3639d4e16d7f5d8b4558e611d7aaef7b0a30b077",
-    "@bower_components/etools-dropdown": "unicef-polymer/etools-dropdown#e9ae4587d0a55082b59f34653f4eacea880e3c54",
-    "@bower_components/etools-loading": "unicef-polymer/etools-loading#dd8c083b85aa44ad809349878a426977dc89698d"
+    "etools-ajax": "git+https://github.com/unicef-polymer/etools-ajax.git#update-to-polymer3",
+    "etools-behaviors": "git+https://github.com/unicef-polymer/etools-behaviors.git#upgrade-to-polymer3",
+    "etools-dialog": "git+https://github.com/unicef-polymer/etools-dialog.git#upgrade-to-polymer3",
+    "etools-dropdown": "git+https://github.com/unicef-polymer/etools-dropdown.git#upgrade-to-polymer3",
+    "etools-loading": "git+https://github.com/unicef-polymer/etools-loading.git#upgrade-to-polymer3"
   },
   "engines": {
     "yarn": ">= 1.0.0"

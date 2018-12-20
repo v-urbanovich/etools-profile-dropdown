@@ -1,9 +1,9 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
-import '@bower_components/etools-dialog/etools-dialog.js';
-import '@bower_components/etools-dropdown/etools-dropdown.js';
-import '@bower_components/etools-dropdown/etools-dropdown-multi.js';
+import 'etools-dialog/etools-dialog.js';
+import 'etools-dropdown/etools-dropdown.js';
+import 'etools-dropdown/etools-dropdown-multi.js';
 import './scripts/lodash.js';
 
 
