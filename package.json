@@ -1,6 +1,6 @@
 {
   "description": "User profile dropdown for header toolbar.",
-  "name": "etools-dropdown",
+  "name": "etools-profile-dropdown",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
