@@ -6,8 +6,7 @@ import '@polymer/iron-dropdown/iron-dropdown.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-styles/element-styles/paper-material-styles.js';
 import './user-profile-dialog.js';
-import './scripts/lodash.js';
-
+import 'lodash/lodash.min.js';
 
 /**
  * `etools-profile-dropdown`
@@ -193,6 +192,9 @@ class EtoolsProfileDropdown extends PolymerElement {
   }
 
   _setDialogProfileData() {
+    if (!this.profile) {
+      return;
+    }
     this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
   }
 
@@ -225,7 +227,6 @@ class EtoolsProfileDropdown extends PolymerElement {
   _toggleMenu() {
     this.set('opened', !this.opened);
   }
-
 
   _isInPath(path, prop, value) {
     path = path || [];
