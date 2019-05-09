@@ -158,7 +158,8 @@ class EtoolsProfileDropdown extends PolymerElement {
 
   static get observers() {
     return [
-      '_dataLoaded(sections, offices, users, profile)'
+      // '_dataLoaded(sections, offices, users, profile)'
+      '_dataLoaded(profile)'
     ];
   }
 
@@ -179,11 +180,12 @@ class EtoolsProfileDropdown extends PolymerElement {
   }
 
   _dataLoaded() {
-    if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+    // if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+    if (this._allHaveValues('profile')) {
       this.userProfileDialog.profile = this.profile;
-      this.userProfileDialog.offices = this.offices;
-      this.userProfileDialog.users = this.users;
-      this.userProfileDialog.sections = this.sections;
+      // this.userProfileDialog.offices = this.offices;
+      // this.userProfileDialog.users = this.users;
+      // this.userProfileDialog.sections = this.sections;
       if (this._loadingProfileMsgActive) {
         this.set('_loadingProfileMsgActive', false);
         this.dispatchEvent(new CustomEvent('global-loading', {bubbles: true, composed: true}));
@@ -213,7 +215,8 @@ class EtoolsProfileDropdown extends PolymerElement {
   _openUserProfileDialog() {
     this._setDialogProfileData();
     this.userProfileDialog.openUserProfileDialog();
-    if (!this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+    // if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
+    if (!this._allHaveValues('profile')) {
       this.dispatchEvent(new CustomEvent('global-loading', {
         detail: {active: true, message: 'Loading profile...'},
         bubbles: true,
