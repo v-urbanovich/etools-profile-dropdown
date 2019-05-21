@@ -4,7 +4,6 @@ import '@polymer/paper-input/paper-input.js';
 import 'etools-dialog/etools-dialog.js';
 import 'etools-dropdown/etools-dropdown.js';
 import 'etools-dropdown/etools-dropdown-multi.js';
-import 'lodash/lodash.min.js';
 
 /**
  * @polymer

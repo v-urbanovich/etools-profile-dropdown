@@ -6,7 +6,6 @@ import '@polymer/iron-dropdown/iron-dropdown.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-styles/element-styles/paper-material-styles.js';
 import './user-profile-dialog.js';
-import 'lodash/lodash.min.js';
 
 /**
  * `etools-profile-dropdown`
