@@ -200,9 +200,9 @@ class EtoolsProfileDropdown extends PolymerElement {
   }
 
   _allHaveValues() {
-    let args = _.toArray(arguments); // eslint-disable-line
+    let args = this._toArray(arguments);
     return args.reduce((hasVal, prop) => {
-      return !_.isEmpty(this[prop]) && hasVal;
+      return !this._isEmpty(this[prop]) && hasVal;
     }, true);
   }
 
@@ -239,6 +239,63 @@ class EtoolsProfileDropdown extends PolymerElement {
     }
     return false;
   }
+
+  _isEmpty(value){
+    return  value === undefined ||
+            value === null ||
+            (typeof value === "object" && Object.keys(value).length === 0) ||
+            (typeof value === "string" && value.trim().length === 0)
+  }
+
+  _toArray(obj) {
+    if (!obj) return [];
+    if (Array.isArray(obj)) return slice.call(obj);
+    if (this._isArrayLike(obj)){
+      var values = Object.entries(obj).map(([k, v]) => (v))
+      return values;
+    }
+    if(this._isString(obj)){
+      let reStrSymbol = /[^\ud800-\udfff]|[\ud800-\udbff][\udc00-\udfff]|[\ud800-\udfff]/g;
+      return obj.match(reStrSymbol);
+    }
+    return this._values(obj);
+  }
+
+  _values(obj){
+    var keys = this._getKeys(obj);
+    var length = keys.length;
+    var values = Array(length);
+    for (var i = 0; i < length; i++) {
+      values[i] = obj[keys[i]];
+    }
+    return values;
+  }
+
+  _getKeys(obj) {
+    if (!this._isObject(obj)) return [];
+    if (Object.keys) return Object.keys(obj);
+    var keys = [];
+    for (var key in obj) { keys.push(key); }
+    return keys;
+  }
+
+  _isString(value) {
+    return typeof value == 'string' || value instanceof String;
+  }
+
+  _isArrayLike(collection) {
+    if(collection){
+      var length = collection['length'];
+      return typeof length == 'number' && length >= 0;
+    }
+    return false;
+  }
+
+  _isObject(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  }
+
 }
 
 window.customElements.define(EtoolsProfileDropdown.is, EtoolsProfileDropdown);

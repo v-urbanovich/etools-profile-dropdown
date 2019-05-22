@@ -175,8 +175,8 @@ class EtoolsUserProfileDialog extends PolymerElement {
     if (profile === undefined) {
       return;
     }
-    let availableCountryIds = _.map(this.profile.countries_available, 'id');
-    let availableGroups = _.map(this.profile.groups, 'id');
+    let availableCountryIds = this.profile.countries_available.map(x => x['id']);
+    let availableGroups = this.profile.groups.map(x => x['id']);
 
     this.set('availableCountryIds', availableCountryIds);
     this.set('availableGroups', availableGroups);
