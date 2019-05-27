@@ -6,7 +6,8 @@ import '@polymer/iron-dropdown/iron-dropdown.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-styles/element-styles/paper-material-styles.js';
 import './user-profile-dialog.js';
-import 'lodash/lodash.min.js';
+import isEmpty from 'lodash-es/isEmpty';
+import toArray from 'lodash-es/toArray';
 
 /**
  * `etools-profile-dropdown`
@@ -201,9 +202,9 @@ class EtoolsProfileDropdown extends PolymerElement {
   }
 
   _allHaveValues() {
-    let args = _.toArray(arguments); // eslint-disable-line
+    let args = toArray(arguments);
     return args.reduce((hasVal, prop) => {
-      return !_.isEmpty(this[prop]) && hasVal;
+      return !isEmpty(this[prop]) && hasVal;
     }, true);
   }
 
