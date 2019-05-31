@@ -1,6 +1,6 @@
 {
   "description": "User profile dropdown for header toolbar.",
-  "name": "@unicef-polymer/etools-profile-dropdown",
+  "name": "etools-profile-dropdown",
   "version": "4.0.0",
   "devDependencies": {
     "eslint": "^3.19.0",
