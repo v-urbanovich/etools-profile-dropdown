@@ -3,6 +3,9 @@
 ## Install
 `$ npm i --save @unicef-polymer/etools-profile-dropdown`
 
+## Install the Polymer-CLI
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
+
 ## Description
 User profile dropdown for header toolbar. 
 Custom element for etools apps.
