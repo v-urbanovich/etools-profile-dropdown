@@ -142,7 +142,7 @@
           }
         },
         _mapIds: function(profile) {
-          let availableCountryIds = _.map(this.profile.profile.countries_available, 'id');
+          let availableCountryIds = _.map(this.profile.countries_available, 'id');
           let availableGroups = _.map(this.profile.groups, 'id');
 
           this.set('availableCountryIds', availableCountryIds);
