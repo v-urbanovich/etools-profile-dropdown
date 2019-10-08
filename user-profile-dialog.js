@@ -1,9 +1,9 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
-import 'etools-dialog/etools-dialog.js';
-import 'etools-dropdown/etools-dropdown.js';
-import 'etools-dropdown/etools-dropdown-multi.js';
+import '@unicef-polymer/etools-dialog/etools-dialog.js';
+import '@unicef-polymer/etools-dropdown/etools-dropdown.js';
+import '@unicef-polymer/etools-dropdown/etools-dropdown-multi.js';
 
 /**
  * @polymer
