@@ -30,6 +30,10 @@ class EtoolsUserProfileDialog extends PolymerElement {
           width: 100%;
         }
 
+        paper-input:read-only, etools-dropdown-multi:read-only {
+          pointer-events: none;
+        }
+
         #profile-content {
           overflow: hidden;
           box-sizing: border-box;
@@ -75,7 +79,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
       </style>
 
       <etools-dialog id="userProfileDialog" size="lg" ok-btn-text="Save" dialog-title="My Profile"
-                     on-close="_closeUserProfileDialog">
+                     hide-confirm-btn="[[readonly]]" on-close="_closeUserProfileDialog">
 
         <div id="profile-content">
           <!-- FIELDS HIDDEN AS REQUIRED BY BUSINESS SPECS - CH6215 -->
@@ -113,21 +117,21 @@ class EtoolsUserProfileDialog extends PolymerElement {
             </div> -->
             <div class="row-h flex-c">
               <div class="col col-3">
-                <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly></paper-input>
+                <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly="[[readonly]]"></paper-input>
               </div>
             </div>
             <div class="row-h flex-c">
               <div class="col col-12">
                 <etools-dropdown-multi id="workspaces" label="Available workspaces" placeholder="—"
                                        selected-values="[[availableCountryIds]]" options="[[profile.countries_available]]"
-                                       option-value="id" option-label="name" readonly>
+                                       option-value="id" option-label="name" readonly="[[readonly]]">
                 </etools-dropdown-multi>
               </div>
             </div>
             <div class="row-h flex-c">
               <div class="col col-12">
                 <etools-dropdown-multi id="groups" label="My Groups" placeholder="—" selected-values="[[availableGroups]]"
-                                       options="[[profile.groups]]" option-value="id" option-label="name" readonly>
+                                       options="[[profile.groups]]" option-value="id" option-label="name" readonly="[[readonly]]">
                 </etools-dropdown-multi>
               </div>
             </div>
@@ -153,6 +157,10 @@ class EtoolsUserProfileDialog extends PolymerElement {
       profile: {
         type: Object,
         notify: true
+      },
+      readonly: {
+        type: Boolean,
+        value: true
       },
       // offices: Array,
       // sections: Array,
