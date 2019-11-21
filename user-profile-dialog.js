@@ -32,6 +32,9 @@ class EtoolsUserProfileDialog extends PolymerElement {
 
         paper-input:read-only, etools-dropdown-multi:read-only {
           pointer-events: none;
+          --paper-input-container-underline: {
+            border: none;
+          }
         }
 
         #profile-content {
@@ -117,21 +120,21 @@ class EtoolsUserProfileDialog extends PolymerElement {
             </div> -->
             <div class="row-h flex-c">
               <div class="col col-3">
-                <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly="[[readonly]]"></paper-input>
+                <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly></paper-input>
               </div>
             </div>
             <div class="row-h flex-c">
               <div class="col col-12">
                 <etools-dropdown-multi id="workspaces" label="Available workspaces" placeholder="—"
                                        selected-values="[[availableCountryIds]]" options="[[profile.countries_available]]"
-                                       option-value="id" option-label="name" readonly="[[readonly]]">
+                                       option-value="id" option-label="name" readonly>
                 </etools-dropdown-multi>
               </div>
             </div>
             <div class="row-h flex-c">
               <div class="col col-12">
                 <etools-dropdown-multi id="groups" label="My Groups" placeholder="—" selected-values="[[availableGroups]]"
-                                       options="[[profile.groups]]" option-value="id" option-label="name" readonly="[[readonly]]">
+                                       options="[[profile.groups]]" option-value="id" option-label="name" readonly>
                 </etools-dropdown-multi>
               </div>
             </div>
