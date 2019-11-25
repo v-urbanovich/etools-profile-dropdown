@@ -30,7 +30,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
           width: 100%;
         }
 
-        paper-input:read-only, etools-dropdown-multi:read-only {
+        paper-input[readonly], etools-dropdown-multi[readonly] {
           pointer-events: none;
           --paper-input-container-underline: {
             border: none;
