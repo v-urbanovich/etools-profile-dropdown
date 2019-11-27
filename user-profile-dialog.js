@@ -30,6 +30,13 @@ class EtoolsUserProfileDialog extends PolymerElement {
           width: 100%;
         }
 
+        paper-input[readonly], etools-dropdown-multi[readonly] {
+          pointer-events: none;
+          --paper-input-container-underline: {
+            border: none;
+          }
+        }
+
         #profile-content {
           overflow: hidden;
           box-sizing: border-box;
@@ -75,7 +82,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
       </style>
 
       <etools-dialog id="userProfileDialog" size="lg" ok-btn-text="Save" dialog-title="My Profile"
-                     on-close="_closeUserProfileDialog">
+                     hide-confirm-btn="[[readonly]]" on-close="_closeUserProfileDialog">
 
         <div id="profile-content">
           <!-- FIELDS HIDDEN AS REQUIRED BY BUSINESS SPECS - CH6215 -->
@@ -153,6 +160,10 @@ class EtoolsUserProfileDialog extends PolymerElement {
       profile: {
         type: Object,
         notify: true
+      },
+      readonly: {
+        type: Boolean,
+        value: true
       },
       // offices: Array,
       // sections: Array,
