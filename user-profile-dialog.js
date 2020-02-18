@@ -1,4 +1,4 @@
-import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
 import '@unicef-polymer/etools-dialog/etools-dialog.js';
@@ -123,6 +123,11 @@ class EtoolsUserProfileDialog extends PolymerElement {
                 <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly></paper-input>
               </div>
             </div>
+            <div class="row-h flex-c" hidden$="[[!showEmail]]">
+              <div class="col col-6">
+                <paper-input id="email" label="Email" placeholder="&#8212;" value="[[profile.email]]" readonly></paper-input>
+              </div>
+            </div>
             <div class="row-h flex-c">
               <div class="col col-12">
                 <etools-dropdown-multi id="workspaces" label="Available workspaces" placeholder="—"
@@ -169,7 +174,11 @@ class EtoolsUserProfileDialog extends PolymerElement {
       // sections: Array,
       // users: Array,
       availableCountryIds: Array,
-      availableGroups: Array
+      availableGroups: Array,
+      showEmail: {
+        type: Boolean,
+        value: false
+      }
     };
   }
 
@@ -200,7 +209,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
 
   saveData() {
     this.dispatchEvent(new CustomEvent('save-profile', {
-      detail: {profile: this.profile},
+      detail: { profile: this.profile },
       bubbles: true,
       composed: true
     }));
