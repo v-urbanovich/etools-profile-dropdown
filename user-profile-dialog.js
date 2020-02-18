@@ -1,4 +1,4 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
 import '@unicef-polymer/etools-dialog/etools-dialog.js';
@@ -209,7 +209,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
 
   saveData() {
     this.dispatchEvent(new CustomEvent('save-profile', {
-      detail: { profile: this.profile },
+      detail: {profile: this.profile},
       bubbles: true,
       composed: true
     }));
