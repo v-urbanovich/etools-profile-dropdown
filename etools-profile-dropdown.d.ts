@@ -19,8 +19,8 @@ import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
  * User profile dropdown for header toolbar.
  */
 declare class EtoolsProfileDropdown extends PolymerElement {
-  opened: boolean|null|undefined;
-  userProfileDialog: object|null|undefined;
+  opened: boolean | null | undefined;
+  userProfileDialog: object | null | undefined;
 
   /**
    * Expected structure of array elements :
@@ -30,7 +30,7 @@ declare class EtoolsProfileDropdown extends PolymerElement {
    *        value: '234'
    *      }
    */
-  sections: any[]|null|undefined;
+  sections: any[] | null | undefined;
 
   /**
    * Expected structure of array elements :
@@ -40,7 +40,7 @@ declare class EtoolsProfileDropdown extends PolymerElement {
    *        value: '234'
    *      }
    */
-  offices: any[]|null|undefined;
+  offices: any[] | null | undefined;
 
   /**
    * Expected structure of array elements :
@@ -50,15 +50,16 @@ declare class EtoolsProfileDropdown extends PolymerElement {
    *        value: user.id
    *      }
    */
-  users: object|null|undefined;
+  users: object | null | undefined;
 
   /**
    * Profile object should be according to api endpoint
    *  `/users/myprofile/`
    *  and all modifications should be POSTed to the same endpoint
    */
-  profile: object|null|undefined;
-  _loadingProfileMsgActive: boolean|null|undefined;
+  profile: object | null | undefined;
+  showEmail: boolean;
+  _loadingProfileMsgActive: boolean | null | undefined;
   connectedCallback(): void;
   _dispatchSaveProfileEvent(ev: any): void;
   _dataLoaded(): void;

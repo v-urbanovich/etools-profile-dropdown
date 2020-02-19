@@ -153,6 +153,12 @@ class EtoolsProfileDropdown extends PolymerElement {
         notify: true
       },
 
+      showEmail: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
+      },
+
       _loadingProfileMsgActive: Boolean
     };
   }
@@ -199,6 +205,7 @@ class EtoolsProfileDropdown extends PolymerElement {
       return;
     }
     this.userProfileDialog.profile = JSON.parse(JSON.stringify(this.profile));
+    this.userProfileDialog.showEmail = this.showEmail;
   }
 
   _allHaveValues() {

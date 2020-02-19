@@ -15,13 +15,14 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 
 declare class EtoolsUserProfileDialog extends PolymerElement {
-  profile: object|null|undefined;
+  profile: object | null | undefined;
 
   /**
    * users: Array,
    */
-  availableCountryIds: any[]|null|undefined;
-  availableGroups: any[]|null|undefined;
+  availableCountryIds: any[] | null | undefined;
+  availableGroups: any[] | null | undefined;
+  showEmail: boolean;
   openUserProfileDialog(): void;
   _closeUserProfileDialog(e: any): void;
   _mapIds(profile: any): void;

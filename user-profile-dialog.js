@@ -123,6 +123,11 @@ class EtoolsUserProfileDialog extends PolymerElement {
                 <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly></paper-input>
               </div>
             </div>
+            <div class="row-h flex-c" hidden$="[[!showEmail]]">
+              <div class="col col-6">
+                <paper-input id="email" label="Email" placeholder="&#8212;" value="[[profile.email]]" readonly></paper-input>
+              </div>
+            </div>
             <div class="row-h flex-c">
               <div class="col col-12">
                 <etools-dropdown-multi id="workspaces" label="Available workspaces" placeholder="—"
@@ -169,7 +174,11 @@ class EtoolsUserProfileDialog extends PolymerElement {
       // sections: Array,
       // users: Array,
       availableCountryIds: Array,
-      availableGroups: Array
+      availableGroups: Array,
+      showEmail: {
+        type: Boolean,
+        value: false
+      }
     };
   }
 
