@@ -124,7 +124,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
               </div>
             </div>
             <div class="row-h flex-c" hidden$="[[!showEmail]]">
-              <div class="col col-6">
+              <div class="col col-12">
                 <paper-input id="email" label="Email" placeholder="&#8212;" value="[[profile.email]]" readonly></paper-input>
               </div>
             </div>
@@ -151,7 +151,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
               </div>
             </div> -->
           </div>
-  
+
         </etools-dialog>
 `;
   }
