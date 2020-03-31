@@ -119,7 +119,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
               </div>
             </div> -->
             <div class="row-h flex-c">
-              <div class="col col-3">
+              <div class="col col-12">
                 <paper-input id="name" label="Name" placeholder="&#8212;" value="[[profile.name]]" readonly></paper-input>
               </div>
             </div>
