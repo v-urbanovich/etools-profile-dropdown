@@ -187,6 +187,9 @@ class EtoolsProfileDropdown extends PolymerElement {
   }
 
   _dataLoaded() {
+    if (!this.userProfileDialog) {//Fixes timing issue
+      return;
+    }
     // if (this._allHaveValues('users', 'profile', 'offices', 'sections')) {
     if (this._allHaveValues('profile')) {
       this.userProfileDialog.profile = this.profile;
