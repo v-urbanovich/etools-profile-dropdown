@@ -76,10 +76,12 @@ class EtoolsProfileDropdown extends PolymerElement {
             <paper-icon-button id="accountProfile" icon="account-circle"></paper-icon-button>
             Profile
           </div>
-          <div class="item" on-click="_logout">
-            <paper-icon-button id="powerSettings" icon="power-settings-new"></paper-icon-button>
-            Sign out
-          </div>
+          <template is="dom-if" if="{{showSignOut}}">
+            <div class="item" on-click="_logout">
+              <paper-icon-button id="powerSettings" icon="power-settings-new"></paper-icon-button>
+              Sign out
+            </div>
+          <template>
         </div>
       </iron-dropdown>
     `;
@@ -157,6 +159,12 @@ class EtoolsProfileDropdown extends PolymerElement {
         type: Boolean,
         reflectToAttribute: true,
         value: false
+      },
+
+      showSignOut: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: true
       },
 
       _loadingProfileMsgActive: Boolean
