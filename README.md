@@ -26,7 +26,8 @@ Your application is already set up to be tested via [web-component-tester](https
 
 
 ## Styling
-Custom property | Description | Default
+Custom property/part | Description | Default
 ----------------|-------------|----------
 `etools-profile-dropdown::part(epd-user-profile-dropdown-conten)` |  profile content shadow part | `{}`
+`--epd-profile-dialog-border-b` | user-profile-dialog border-bottom | `none`
 

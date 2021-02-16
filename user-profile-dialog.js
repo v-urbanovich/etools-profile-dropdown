@@ -79,6 +79,10 @@ class EtoolsUserProfileDialog extends PolymerElement {
           max-width: 100%;
         }
 
+        etools-dialog::part(ed-title) {
+          border-bottom: var(--epd-profile-dialog-border-b, none);
+        }
+
       </style>
 
       <etools-dialog id="userProfileDialog" size="lg" ok-btn-text="Save" dialog-title="My Profile"
