@@ -1,5 +1,4 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-input/paper-input.js';
 import '@unicef-polymer/etools-dialog/etools-dialog.js';
 import '@unicef-polymer/etools-dropdown/etools-dropdown.js';
@@ -40,16 +39,16 @@ class EtoolsUserProfileDialog extends PolymerElement {
         #profile-content {
           overflow: hidden;
           box-sizing: border-box;
-          @apply --user-profile-dropdown-content;
         }
 
         .row-h {
-          @apply --layout-horizontal;
+          display: flex;
+          flex-direction: row;
         }
 
         .flex-c {
           /* flex container */
-          @apply --layout-flex;
+          flex: 1;
         }
 
         .row-h + .row-h, .row-v + .row-v {
@@ -61,7 +60,8 @@ class EtoolsUserProfileDialog extends PolymerElement {
         }
 
         .col {
-          @apply --layout-horizontal;
+          display: flex;
+          flex-direction: row;
           box-sizing: border-box;
         }
 
@@ -84,7 +84,7 @@ class EtoolsUserProfileDialog extends PolymerElement {
       <etools-dialog id="userProfileDialog" size="lg" ok-btn-text="Save" dialog-title="My Profile"
                      hide-confirm-btn="[[readonly]]" on-close="_closeUserProfileDialog">
 
-        <div id="profile-content">
+        <div id="profile-content" part="epd-user-profile-dropdown-content">
           <!-- FIELDS HIDDEN AS REQUIRED BY BUSINESS SPECS - CH6215 -->
           <!-- <div class="row-h flex-c">
               <div class="col col-6">
