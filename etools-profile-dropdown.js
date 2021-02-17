@@ -1,7 +1,6 @@
 import {PolymerElement, html} from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/social-icons.js';
-import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-dropdown/iron-dropdown.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-styles/element-styles/paper-material-styles.js';
@@ -23,9 +22,10 @@ class EtoolsProfileDropdown extends PolymerElement {
     return html`
       <style include="paper-material-styles">
         :host {
-          @apply --layout-horizontal;
-          @apply --layout-center;
-          @apply --layout-center-justified;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
           position: relative;
           width: 60px;
           height: 60px;
@@ -55,8 +55,9 @@ class EtoolsProfileDropdown extends PolymerElement {
           height: 48px;
           font-size: 16px;
           color: rgba(0, 0, 0, 0.87);
-          @apply --layout-horizontal;
-          @apply --layout-center;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
           padding: 0 16px 0 8px;
           cursor: pointer;
           white-space: nowrap;
